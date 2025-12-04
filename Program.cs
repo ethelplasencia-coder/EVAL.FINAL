@@ -10,6 +10,8 @@ namespace CAFETERÌA
     {
         static string[,] nombres = new string[2, 20];
         static int[,] combos = new int[2, 20];
+        static string[] nombreCombos = { "Combo 1: Café + Pan", "Combo 2: Jugo + Sandwich", "Combo 3: Té + Galletas" };
+        static double[] precioCombos = { 3.50, 5.00, 4.00 };
 
         static void Main()
         {
@@ -29,14 +31,14 @@ namespace CAFETERÌA
                 Console.WriteLine("7. Salir");
                 Console.Write("Seleccione una opción: ");
                 int.TryParse(Console.ReadLine(), out opcion);
-
-                Console.WriteLine("\n(Opciones aún no implementadas)");
+                if (opcion == 1)
+                    MostrarMenu();
                 Console.WriteLine("Presione ENTER para continuar...");
                 Console.ReadLine();
 
             } while (opcion != 7);
         }
-         static void InicializarMatrices()
+        static void InicializarMatrices()
         {
             for (int t = 0; t < 2; t++)
             {
@@ -45,8 +47,13 @@ namespace CAFETERÌA
                     nombres[t, i] = "";
                     combos[t, i] = -1;
                 }
-            } 
+            }
         }
-    }
-    
+        static void MostrarMenu()
+        {
+            Console.WriteLine("\n--- MENÚ DE COMBOS ---");
+            for (int i = 0; i < nombreCombos.Length; i++)
+                Console.WriteLine($"{i + 1}. {nombreCombos[i]} - S/ {precioCombos[i]}");
+        }
+    }    
 }
