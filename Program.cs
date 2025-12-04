@@ -31,10 +31,14 @@ namespace CAFETERÌA
                 Console.WriteLine("7. Salir");
                 Console.Write("Seleccione una opción: ");
                 int.TryParse(Console.ReadLine(), out opcion);
-                if (opcion == 1)
-                    MostrarMenu();
-                else if (opcion == 2)
-                    RegistrarReserva();
+                switch (opcion)
+                {
+                    case 1: MostrarMenu(); break;
+                    case 2: RegistrarReserva(); break;
+                    case 3: CancelarReserva(); break;
+                    case 7: Console.WriteLine("Saliendo..."); break;
+                    default: Console.WriteLine("Opción inválida."); break;
+                }
                 Console.WriteLine("Presione ENTER para continuar...");
                 Console.ReadLine();
 
@@ -63,7 +67,6 @@ namespace CAFETERÌA
             Console.WriteLine("1. Mañana");
             Console.WriteLine("2. Tarde");
             Console.Write("Opción: ");
-
             int turno;
             int.TryParse(Console.ReadLine(), out turno);
             return turno - 1;
@@ -114,5 +117,24 @@ namespace CAFETERÌA
 
             Console.WriteLine("Reserva registrada.");
         }  
+        static void CancelarReserva()
+        {
+            int turno = PedirTurno();
+            Console.Write("Ingrese nombre a cancelar: ");
+            string nombre = Console.ReadLine();
+
+            for (int i = 0; i < 20; i++)
+            {
+                if (nombres[turno, i].Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                {
+                    nombres[turno, i] = "";
+                    combos[turno, i] = -1;
+                    Console.WriteLine("Reserva cancelada.");
+                    return;
+                }
+            }
+         
+        Console.WriteLine("No se encontró la reserva.");
+        }
     }
 }
