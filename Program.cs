@@ -33,6 +33,8 @@ namespace CAFETERÌA
                 int.TryParse(Console.ReadLine(), out opcion);
                 if (opcion == 1)
                     MostrarMenu();
+                else if (opcion == 2)
+                    RegistrarReserva();
                 Console.WriteLine("Presione ENTER para continuar...");
                 Console.ReadLine();
 
@@ -55,5 +57,62 @@ namespace CAFETERÌA
             for (int i = 0; i < nombreCombos.Length; i++)
                 Console.WriteLine($"{i + 1}. {nombreCombos[i]} - S/ {precioCombos[i]}");
         }
-    }    
+        static int PedirTurno()
+        {
+            Console.WriteLine("\nSeleccione turno:");
+            Console.WriteLine("1. Mañana");
+            Console.WriteLine("2. Tarde");
+            Console.Write("Opción: ");
+
+            int turno;
+            int.TryParse(Console.ReadLine(), out turno);
+            return turno - 1;
+        }
+
+        static int BuscarEspacio(int turno)
+        {
+            for (int i = 0; i < 20; i++)
+                if (combos[turno, i] == -1)
+                    return i;
+
+            return -1;
+        }
+
+        static void RegistrarReserva()
+        {
+            int turno = PedirTurno();
+            if (turno < 0 || turno > 1)
+            {
+                Console.WriteLine("Turno inválido.");
+                return;
+            }
+
+            int pos = BuscarEspacio(turno);
+            if (pos == -1)
+            {
+                Console.WriteLine("Turno lleno.");
+                return;
+            }
+
+            Console.Write("Nombre del estudiante: ");
+            string nombre = Console.ReadLine();
+
+            MostrarMenu();
+            Console.Write("Seleccione combo: ");
+            int combo;
+            int.TryParse(Console.ReadLine(), out combo);
+            combo--;
+
+            if (combo < 0 || combo >= nombreCombos.Length)
+            {
+                Console.WriteLine("Combo inválido.");
+                return;
+            }
+
+            nombres[turno, pos] = nombre;
+            combos[turno, pos] = combo;
+
+            Console.WriteLine("Reserva registrada.");
+        }  
+    }
 }
