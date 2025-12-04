@@ -8,8 +8,12 @@ namespace CAFETERÌA
 {
     internal class Program
     {
+        static string[,] nombres = new string[2, 20];
+        static int[,] combos = new int[2, 20];
+
         static void Main()
         {
+            InicializarMatrices();
             int opcion;
 
             do
@@ -32,5 +36,17 @@ namespace CAFETERÌA
 
             } while (opcion != 7);
         }
+         static void InicializarMatrices()
+        {
+            for (int t = 0; t < 2; t++)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    nombres[t, i] = "";
+                    combos[t, i] = -1;
+                }
+            } 
+        }
     }
+    
 }
