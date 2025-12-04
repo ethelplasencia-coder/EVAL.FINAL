@@ -39,6 +39,7 @@ namespace CAFETERÌA
                     case 7: Console.WriteLine("Saliendo..."); break;
                     case 4: MostrarReservas(); break;
                     case 5: ReporteIngresos(); break;
+                    case 6: BuscarPorNombre(); break;
                     default: Console.WriteLine("Opción inválida."); break;
                 }
                 Console.WriteLine("Presione ENTER para continuar...");
@@ -159,7 +160,7 @@ namespace CAFETERÌA
                     Console.WriteLine("No hay reservas en este turno.");
             }
         }
-         static double CalcularIngresoTurno(int turno)
+        static double CalcularIngresoTurno(int turno)
         {
             double total = 0;
 
@@ -183,5 +184,31 @@ namespace CAFETERÌA
             Console.WriteLine($"Tarde: S/ {tarde}");
             Console.WriteLine($"TOTAL: S/ {mañana + tarde}");
         }    
+        static void BuscarPorNombre()
+        {
+            Console.Write("Ingrese nombre a buscar: ");
+            string nombre = Console.ReadLine();
+            bool encontrado = false;
+
+
+            for (int t = 0; t < 2; t++)
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    if (nombres[t, i].Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"Encontrado en turno {(t == 0 ? "Mañana" : "Tarde")}");
+                        Console.WriteLine($"Combo: {nombreCombos[combos[t, i]]}");
+                        encontrado = true;
+                    }
+                }
+            }
+             if (!encontrado)
+                Console.WriteLine("No se encontró ninguna reserva con ese nombre.");  
+              
+        }
     }
+   
 }
+    
+
