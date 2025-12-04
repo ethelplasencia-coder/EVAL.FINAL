@@ -37,6 +37,8 @@ namespace CAFETERÌA
                     case 2: RegistrarReserva(); break;
                     case 3: CancelarReserva(); break;
                     case 7: Console.WriteLine("Saliendo..."); break;
+                    case 4: MostrarReservas(); break;
+                    case 5: ReporteIngresos(); break;
                     default: Console.WriteLine("Opción inválida."); break;
                 }
                 Console.WriteLine("Presione ENTER para continuar...");
@@ -156,6 +158,30 @@ namespace CAFETERÌA
                 if (!hay)
                     Console.WriteLine("No hay reservas en este turno.");
             }
-        }     
+        }
+         static double CalcularIngresoTurno(int turno)
+        {
+            double total = 0;
+
+            for (int i = 0; i < 20; i++)
+            {
+                if (combos[turno, i] != -1)
+                {
+                    total += precioCombos[combos[turno, i]];
+                }
+            }
+            return total;
+        }
+
+        static void ReporteIngresos()
+        {
+            double mañana = CalcularIngresoTurno(0);
+            double tarde = CalcularIngresoTurno(1);
+
+            Console.WriteLine("\n--- REPORTE DE INGRESOS ---");
+            Console.WriteLine($"Mañana: S/ {mañana}");
+            Console.WriteLine($"Tarde: S/ {tarde}");
+            Console.WriteLine($"TOTAL: S/ {mañana + tarde}");
+        }    
     }
 }
