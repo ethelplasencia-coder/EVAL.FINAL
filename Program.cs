@@ -116,7 +116,7 @@ namespace CAFETERÌA
             combos[turno, pos] = combo;
 
             Console.WriteLine("Reserva registrada.");
-        }  
+        }
         static void CancelarReserva()
         {
             int turno = PedirTurno();
@@ -133,8 +133,29 @@ namespace CAFETERÌA
                     return;
                 }
             }
-         
-        Console.WriteLine("No se encontró la reserva.");
+
+            Console.WriteLine("No se encontró la reserva.");
         }
+        static void MostrarReservas()
+        {
+            for (int t = 0; t < 2; t++)
+            {
+                Console.WriteLine($"\n--- Turno {(t == 0 ? "Mañana" : "Tarde")} ---");
+
+                bool hay = false;
+
+                for (int i = 0; i < 20; i++)
+                {
+                    if (combos[t, i] != -1)
+                    {
+                        hay = true;
+                        Console.WriteLine($"{nombres[t, i]} - {nombreCombos[combos[t, i]]}");
+                    }
+                }
+
+                if (!hay)
+                    Console.WriteLine("No hay reservas en este turno.");
+            }
+        }     
     }
 }
